@@ -1,8 +1,8 @@
 """Программа-сервер"""
 
-import socket
 import sys
 import json
+from socket import *
 from common.variables import *
 from common.utils import get_message, send_message
 
@@ -43,8 +43,6 @@ def main():
         print('В качастве порта может быть указано только число в диапазоне от 1024 до 65535.')
         sys.exit(1)
 
-    # Затем загружаем какой адрес слушать
-
     try:
         if '-a' in sys.argv:
             listen_address = int(sys.argv[sys.argv.index('-a') + 1])
@@ -55,22 +53,16 @@ def main():
         print('После параметра \'a\'- необходимо указать адрес, который будет слушать сервер.')
         sys.exit(1)
 
-    # Готовим сокет
-
-    transport = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    transport = socket(AF_INET, SOCK_STREAM)
     transport.bind((listen_address, listen_port))
-
-    # Слушаем порт
-
     transport.listen(MAX_CONNECTIONS)
 
     while True:
         client, client_address = transport.accept()
         try:
-            message_from_cient = get_message(client)
-            print(message_from_cient)
-            response = process_client_message(message_from_cient)
-            send_message(client, response)
+            message_from_client = get_message(client)
+            print(message_from_client)
+            send_message(client, process_client_message(message_from_client))
             client.close()
         except (ValueError, json.JSONDecodeError):
             print('Принято некорретное сообщение от клиента.')
