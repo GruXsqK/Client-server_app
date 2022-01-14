@@ -1,11 +1,7 @@
 """Unit-тесты клиента"""
 
-import sys
-import os
 import unittest
-sys.path.append(os.path.join(os.getcwd(), '..'))
-from common.variables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, \
-    RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT
+from variables import *
 from client import create_presence, process_ans
 
 
