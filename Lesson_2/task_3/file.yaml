@@ -1,0 +1,13 @@
+items:
+- bread
+- meat
+- water
+- tomato
+- butter
+items_ptice:
+  bread: 2 €
+  butter: 3 €
+  meat: 5 €
+  tomato: 2.5 €
+  water: 1 €
+items_quantity: 5
